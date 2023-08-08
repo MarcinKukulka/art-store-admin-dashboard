@@ -1,6 +1,5 @@
 'use client';
 
-import { Modal } from '@/components/ui/modal';
 import { useModalStore } from '@/hooks/use-modal';
 import { useEffect } from 'react';
 
@@ -11,7 +10,7 @@ const Home = () => {
 		if (!isOpen) onOpen();
 	}, [isOpen, onOpen]);
 
-	return <div className="p-4">root page</div>;
+	return null
 };
 
 export default Home;
