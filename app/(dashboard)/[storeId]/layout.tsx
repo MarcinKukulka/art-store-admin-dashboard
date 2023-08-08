@@ -21,9 +21,9 @@ export default async function DashboardLayout({
 	if (!store) redirect('/');
 
 	return (
-		<>
+		<div className='max-w-7xl mx-auto'>
 			<Navbar />
 			{children}
-		</>
+		</div>
 	);
 }

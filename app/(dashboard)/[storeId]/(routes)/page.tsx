@@ -11,4 +11,5 @@ const DashboardPage = async ({ params }: DashboardPageProps) => {
 	return <div>Active Store: {store?.name}</div>;
 };
 
+
 export default DashboardPage;

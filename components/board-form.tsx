@@ -1,6 +1,6 @@
 'use client';
 
-import { Store } from '@prisma/client';
+import { StoreBoard } from '@prisma/client';
 import { Heading } from '@/components/ui/heading';
 import { Button } from '@/components/ui/button';
 import { Trash } from 'lucide-react';
@@ -22,47 +22,55 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { AlertModal } from '@/components/modals/alert-modal';
-import { ApiAlert } from '@/components/ui/api-alert';
 import { useOrigin } from '@/hooks/use-origin';
+import ImageUpload from '@/components/ui/image-upload';
 
-type SettingsFormProps = {
-	initialData: Store;
+type BoardFormProps = {
+	initialData: StoreBoard | null;
 };
 
-const formSchema = z.object({ name: z.string().min(1) });
+const formSchema = z.object({
+	label: z.string().min(1),
+	imageUrl: z.string().min(1),
+});
 
-type SettingsFormValues = z.infer<typeof formSchema>;
+type BoardFormValues = z.infer<typeof formSchema>;
 
-export const SettingsForm = ({ initialData }: SettingsFormProps) => {
+export const BoardForm = ({ initialData }: BoardFormProps) => {
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const origin = useOrigin();
 
 	const params = useParams();
+	const {storeId, boardId} = params;
 	const router = useRouter();
 
-	const title = 'Settings';
-	const description = 'Manage preferences';
-	const toastSubmitSuccess = 'Store created';
-	const toastSubmitError = 'Something went wrong';
-	const toastDeleteSuccess = 'Store deleted';
-	const toastDeleteError =
-		'Make sure you removed all products and categories first';
-	const action = 'Save changes';
+	const title = initialData ? 'Edit board' : 'Create board';
+	const description = initialData ? 'Edit board' : 'Add a new board';
+	const toastMessage = initialData ? 'Board updated' : 'Board created';
+	const action = initialData ? 'Save changes' : 'Create';
 
-	const form = useForm<SettingsFormValues>({
+	const form = useForm<BoardFormValues>({
 		resolver: zodResolver(formSchema),
-		defaultValues: initialData,
+		defaultValues: initialData || { label: '', imageUrl: '' },
 	});
 
-	const onSubmit = async (data: SettingsFormValues) => {
+	const onSubmit = async (data: BoardFormValues) => {
 		try {
 			setLoading(true);
-			await axios.patch(`/api/stores/${params.storeId}`, data);
+			if (initialData) {
+				await axios.patch(
+					`/api/${storeId}/boards/${boardId}`,
+					data
+				);
+			} else {
+				await axios.post(`/api/${storeId}/boards`, data);
+			}
 			router.refresh();
-			toast.success(toastSubmitSuccess);
+			router.push(`/${storeId}/boards`)
+			toast.success(toastMessage);
 		} catch (error) {
-			toast.error(toastSubmitError);
+			toast.error('Something went wrong');
 		} finally {
 			setLoading(false);
 		}
@@ -71,12 +79,12 @@ export const SettingsForm = ({ initialData }: SettingsFormProps) => {
 	const onDelete = async () => {
 		try {
 			setLoading(true);
-			await axios.delete(`/api/stores/${params.storeId}`);
+			await axios.delete(`/api/${storeId}/board/${boardId}`);
 			router.refresh();
 			router.push('/');
-			toast.success(toastDeleteSuccess);
+			toast.success('Board deleted');
 		} catch (error) {
-			toast.error(toastDeleteError);
+			toast.error('Make sure you removed all categories using this board first');
 		} finally {
 			setLoading(false);
 			setOpen(false);
@@ -93,14 +101,16 @@ export const SettingsForm = ({ initialData }: SettingsFormProps) => {
 			/>
 			<div className="flex items-center justify-between">
 				<Heading title={title} description={description} />
-				<Button
-					disabled={loading}
-					variant="destructive"
-					size="lg"
-					onClick={() => setOpen(true)}
-				>
-					Delete store
-				</Button>
+				{initialData && (
+					<Button
+						disabled={loading}
+						variant="destructive"
+						size="sm"
+						onClick={() => setOpen(true)}
+					>
+						<Trash className="h-4 w-4" />
+					</Button>
+				)}
 			</div>
 			<Separator />
 			<Form {...form}>
@@ -108,17 +118,35 @@ export const SettingsForm = ({ initialData }: SettingsFormProps) => {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-8 w-full"
 				>
+					<FormField
+						control={form.control}
+						name="imageUrl"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Background image</FormLabel>
+								<FormControl>
+									<ImageUpload
+										value={field.value ? [field.value] : []}
+										disabled={loading}
+										onChange={url => field.onChange(url)}
+										onRemove={() => field.onChange('')}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 					<div className="grid grid-cols-3 gap-8">
 						<FormField
 							control={form.control}
-							name="name"
+							name="label"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Name</FormLabel>
+									<FormLabel>Label</FormLabel>
 									<FormControl>
 										<Input
 											disabled={loading}
-											placeholder="Store name"
+											placeholder="Board label"
 											{...field}
 										/>
 									</FormControl>
@@ -133,11 +161,6 @@ export const SettingsForm = ({ initialData }: SettingsFormProps) => {
 				</form>
 			</Form>
 			<Separator />
-			<ApiAlert
-				title="NEXT_PUBLIC_API"
-				description={`${origin}/api/${params.storeId}`}
-				variant="public"
-			/>
 		</>
 	);
 };
