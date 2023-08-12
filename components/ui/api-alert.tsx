@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Copy, Server } from 'lucide-react';
@@ -27,11 +27,10 @@ export const ApiAlert = ({
 	description,
 	variant = 'public',
 }: ApiAlertProps) => {
-
-    const onCopy = () => {
-        navigator.clipboard.writeText(description)
-        toast.success('API route copied to the clipboard')
-    }
+	const onCopy = () => {
+		navigator.clipboard.writeText(description);
+		toast.success('API route copied to the clipboard');
+	};
 	return (
 		<Alert>
 			<Server className="h-4 w-4" />
