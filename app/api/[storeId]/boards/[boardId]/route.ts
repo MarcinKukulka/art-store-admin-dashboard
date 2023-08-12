@@ -84,7 +84,10 @@ export async function DELETE(
 			where: { id: storeId, userId },
 		});
 
-		const board = await prismadb.store.deleteMany({
+		if (!storeByUserId)
+			return new NextResponse('Unauthorized', { status: 405 });
+
+		const board = await prismadb.storeBoard.delete({
 			where: {
 				id: boardId,
 			},

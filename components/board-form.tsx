@@ -79,9 +79,9 @@ export const BoardForm = ({ initialData }: BoardFormProps) => {
 	const onDelete = async () => {
 		try {
 			setLoading(true);
-			await axios.delete(`/api/${storeId}/board/${boardId}`);
+			await axios.delete(`/api/${storeId}/boards/${boardId}`);
 			router.refresh();
-			router.push('/');
+			router.push(`/${storeId}/boards`);
 			toast.success('Board deleted');
 		} catch (error) {
 			toast.error('Make sure you removed all categories using this board first');
