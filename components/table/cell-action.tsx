@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { BoardColumn } from '@/components/table/columns';
+import { BoardColumn } from '@/components/table/board-columns';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -16,9 +16,10 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import axios from 'axios';
 import { AlertModal } from '@/components/modals/alert-modal';
+import { CategoryColumn } from './category-columns';
 
 type CellActionProps = {
-	data: BoardColumn;
+	data: BoardColumn | CategoryColumn;
 };
 
 export const CellAction = ({ data }: CellActionProps) => {
@@ -39,9 +40,7 @@ export const CellAction = ({ data }: CellActionProps) => {
 			router.refresh();
 			toast.success('Board deleted');
 		} catch (error) {
-			toast.error(
-				'Something went wrong'
-			);
+			toast.error('Something went wrong');
 		} finally {
 			setLoading(false);
 			setOpen(false);

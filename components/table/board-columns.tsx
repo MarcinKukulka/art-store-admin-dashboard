@@ -9,7 +9,7 @@ export type BoardColumn = {
 	createdAt: string;
 };
 
-export const columns: ColumnDef<BoardColumn>[] = [
+export const BoardColumns: ColumnDef<BoardColumn>[] = [
 	{
 		accessorKey: 'label',
 		header: 'Board',
