@@ -1,6 +1,6 @@
 'use client';
 
-import { Category } from '@prisma/client';
+import { Category, StoreBoard } from '@prisma/client';
 import { Heading } from '@/components/ui/heading';
 import { Button } from '@/components/ui/button';
 import { Trash } from 'lucide-react';
@@ -22,9 +22,17 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { AlertModal } from '@/components/modals/alert-modal';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from './ui/select';
 
 type CategoryFormProps = {
 	initialData: Category | null;
+	boards: StoreBoard[];
 };
 
 const formSchema = z.object({
@@ -34,12 +42,12 @@ const formSchema = z.object({
 
 type CategoryFormValues = z.infer<typeof formSchema>;
 
-export const CategoryForm = ({ initialData }: CategoryFormProps) => {
+export const CategoryForm = ({ initialData, boards }: CategoryFormProps) => {
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const params = useParams();
-	const { storeId, boardId } = params;
+	const { storeId, categoryId } = params;
 	const router = useRouter();
 
 	const title = initialData ? 'Edit category' : 'Create category';
@@ -56,12 +64,12 @@ export const CategoryForm = ({ initialData }: CategoryFormProps) => {
 		try {
 			setLoading(true);
 			if (initialData) {
-				await axios.patch(`/api/${storeId}/boards/${boardId}`, data);
+				await axios.patch(`/api/${storeId}/categories/${categoryId}`, data);
 			} else {
-				await axios.post(`/api/${storeId}/boards`, data);
+				await axios.post(`/api/${storeId}/categories`, data);
 			}
 			router.refresh();
-			router.push(`/${storeId}/boards`);
+			router.push(`/${storeId}/categories`);
 			toast.success(toastMessage);
 		} catch (error) {
 			toast.error('Something went wrong');
@@ -73,13 +81,13 @@ export const CategoryForm = ({ initialData }: CategoryFormProps) => {
 	const onDelete = async () => {
 		try {
 			setLoading(true);
-			await axios.delete(`/api/${storeId}/boards/${boardId}`);
+			await axios.delete(`/api/${storeId}/categories/${categoryId}`);
 			router.refresh();
-			router.push(`/${storeId}/boards`);
-			toast.success('Board deleted');
+			router.push(`/${storeId}/categories`);
+			toast.success('Category deleted');
 		} catch (error) {
 			toast.error(
-				'Make sure you removed all categories using this board first'
+				'Make sure you removed all categories using this categories first'
 			);
 		} finally {
 			setLoading(false);
@@ -114,11 +122,10 @@ export const CategoryForm = ({ initialData }: CategoryFormProps) => {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="space-y-8 w-full"
 				>
-					
 					<div className="grid grid-cols-3 gap-8">
 						<FormField
 							control={form.control}
-							name="boardId"
+							name="name"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Name</FormLabel>
@@ -129,6 +136,36 @@ export const CategoryForm = ({ initialData }: CategoryFormProps) => {
 											{...field}
 										/>
 									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="boardId"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Board</FormLabel>
+									<Select
+										disabled={loading}
+										onValueChange={field.onChange}
+										value={field.value}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue
+													defaultValue={field.value}
+													placeholder="Select a board"
+												/>
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{boards.map(({ id, label }) => (
+												<SelectItem value={id} key={id}>{label}</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
 									<FormMessage />
 								</FormItem>
 							)}
