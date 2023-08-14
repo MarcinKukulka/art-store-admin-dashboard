@@ -25,20 +25,23 @@ type CellActionProps = {
 export const CellAction = ({ data }: CellActionProps) => {
 	const router = useRouter();
 	const params = useParams();
-	const { storeId, boardId } = params;
+	const { storeId } = params;
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 
+	const toastKind = 'label' in data ? 'Board' : 'Category';
+	const routesKind = 'label' in data ? 'boards' : 'categories';
+
 	const onCopy = (id: string) => {
 		navigator.clipboard.writeText(id);
-		toast.success('Board id copied to the clipboard');
+		toast.success(`${toastKind} id copied to the clipboard`);
 	};
 	const onDelete = async () => {
 		try {
 			setLoading(true);
-			await axios.delete(`/api/${storeId}/boards/${data.id}`);
+			await axios.delete(`/api/${storeId}/${routesKind}/${data.id}`);
 			router.refresh();
-			toast.success('Board deleted');
+			toast.success(`${toastKind} deleted`);
 		} catch (error) {
 			toast.error('Something went wrong');
 		} finally {
@@ -70,7 +73,7 @@ export const CellAction = ({ data }: CellActionProps) => {
 					</DropdownMenuItem>
 					<DropdownMenuItem
 						onClick={() => {
-							router.push(`/${storeId}/boards/${data.id}`);
+							router.push(`/${storeId}/${routesKind}/${data.id}`);
 						}}
 					>
 						<Edit className="mr-2 h-4 w-4" />
