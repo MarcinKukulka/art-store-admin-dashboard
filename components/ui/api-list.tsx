@@ -4,9 +4,9 @@ import { useOrigin } from '@/hooks/use-origin';
 import { useParams } from 'next/navigation';
 import { ApiAlert } from '@/components/ui/api-alert';
 
-type ApiListProps = { entityName: string; entityId: string };
+type ApiListProps = { subjectName: string; subjectId: string };
 
-export const ApiList = ({ entityName, entityId }: ApiListProps) => {
+export const ApiList = ({ subjectName, subjectId }: ApiListProps) => {
 	const params = useParams();
 	const origin = useOrigin();
 
@@ -17,27 +17,27 @@ export const ApiList = ({ entityName, entityId }: ApiListProps) => {
 			<ApiAlert
 				title="GET"
 				variant="public"
-				description={`${apiUrl}/${entityName}`}
+				description={`${apiUrl}/${subjectName}`}
 			/>
 			<ApiAlert
 				title="GET"
 				variant="public"
-				description={`${apiUrl}/${entityName}/{${entityId}}`}
+				description={`${apiUrl}/${subjectName}/{${subjectId}}`}
 			/>
 			<ApiAlert
 				title="POST"
 				variant="admin"
-				description={`${apiUrl}/${entityName}`}
+				description={`${apiUrl}/${subjectName}`}
 			/>
             <ApiAlert
 				title="PATCH"
 				variant="admin"
-				description={`${apiUrl}/${entityName}/{${entityId}}`}
+				description={`${apiUrl}/${subjectName}/{${subjectId}}`}
 			/>
             <ApiAlert
 				title="DELETE"
 				variant="admin"
-				description={`${apiUrl}/${entityName}/{${entityId}}`}
+				description={`${apiUrl}/${subjectName}/{${subjectId}}`}
 			/>
 		</>
 	);

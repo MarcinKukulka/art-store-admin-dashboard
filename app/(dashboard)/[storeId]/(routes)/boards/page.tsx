@@ -1,5 +1,5 @@
 import { StoreBoardClient } from '@/components/board-client';
-import type { BoardColumn } from '@/components/table/columns';
+import type { BoardColumn } from '@/components/table/board-columns';
 import prismadb from '@/lib/prismadb';
 
 const StoreBoardsPage = async ({ params }: { params: { storeId: string } }) => {

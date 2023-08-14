@@ -6,15 +6,14 @@ import { Plus } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { useParams, useRouter } from 'next/navigation';
 import { DataTable } from '@/components/table/data-tabel';
-import { BoardColumn, BoardColumns } from '@/components/table/board-columns';
 import { ApiList } from '@/components/ui/api-list';
-import { CategoryColumn } from './table/category-columns';
+import { CategoryColumn, CategoryColumns } from './table/category-columns';
 
-type StoreBoardClientProps = {
-	data: BoardColumn[]
+type CategoriesClientProps = {
+	data: CategoryColumn[];
 };
 
-export const StoreBoardClient = ({ data }: StoreBoardClientProps) => {
+export const CategoriesClient = ({ data }: CategoriesClientProps) => {
 	const router = useRouter();
 	const params = useParams();
 
@@ -22,19 +21,21 @@ export const StoreBoardClient = ({ data }: StoreBoardClientProps) => {
 		<>
 			<div className="flex items-center justify-between">
 				<Heading
-					title={`Store boards (${data.length})`}
-					description="Manage boards of your store"
+					title={`Categories (${data.length})`}
+					description="Manage categories of your store"
 				/>
-				<Button onClick={() => router.push(`/${params.storeId}/boards/add`)}>
+				<Button
+					onClick={() => router.push(`/${params.storeId}/categories/add`)}
+				>
 					<Plus className="mr-2 h-4 w-4" />
 					Add new
 				</Button>
 			</div>
 			<Separator />
-			<DataTable columns={BoardColumns} data={data} filter="label" />
-			<Heading title="API" description="Calls for boards" />
+			<DataTable columns={CategoryColumns} data={data} filter="name" />
+			<Heading title="API" description="Calls for categories" />
 			<Separator />
-			<ApiList subjectName="boards" subjectId="boardId" />
+			<ApiList subjectName="categories" subjectId="categoryId" />
 		</>
 	);
 };
