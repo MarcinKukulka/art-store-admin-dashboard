@@ -23,6 +23,18 @@ type CellActionProps = {
 	data: BoardColumn | CategoryColumn | SizeColumn;
 };
 
+type ToastKindMap = {
+    label: 'Board';
+    category: 'Category';
+    value: 'Size' | 'Color';
+};
+
+type RoutesKindMap = {
+    label: 'boards';
+    category: 'categories';
+    value: 'sizes' | 'colors';
+};
+
 export const CellAction = ({ data }: CellActionProps) => {
 	const router = useRouter();
 	const params = useParams();
@@ -30,16 +42,46 @@ export const CellAction = ({ data }: CellActionProps) => {
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 
-	const toastKind = () => {
-		if('label' in data) return 'Board';
-		if('category' in data) return 'Category';
-		if('value' in data) return 'Size';
-	}
-	const routesKind = () => {
-		if('label' in data) return 'boards';
-		if('category' in data) return 'categories';
-		if('value' in data) return 'sizes';
-	}
+	// const toastKind = () => {
+	// 	if('label' in data) return 'Board';
+	// 	if('category' in data) return 'Category';
+	// 	if('value' in data) return 'Size';
+	// }
+	// const routesKind = () => {
+	// 	if('label' in data) return 'boards';
+	// 	if('category' in data) return 'categories';
+	// 	if('value' in data) return 'sizes';
+	// }
+	// const toastKind = (): ToastKindMap[keyof ToastKindMap] => {
+	// 	const keys = Object.keys(data) as (keyof typeof data)[];
+	// 	const kind = keys.find(key => key in data) as keyof ToastKindMap;
+	// 	return kind ? kind : 'Unknown';
+	// };
+	
+	// const routesKind = (): RoutesKindMap[keyof RoutesKindMap] => {
+	// 	const keys = Object.keys(data) as (keyof typeof data)[];
+	// 	const kind = keys.find(key => key in data) as keyof RoutesKindMap;
+	// 	return kind ? kind : 'unknown';
+	// };
+	const toastKind = (): ToastKindMap[keyof ToastKindMap] => {
+		if ('label' in data) return 'Board';
+		if ('category' in data) return 'Category';
+		if ('value' in data) {
+			const kind = data.value as keyof ToastKindMap;
+			return kind as ToastKindMap[keyof ToastKindMap];
+		}
+		return 'Board';
+	};
+	
+	const routesKind = (): RoutesKindMap[keyof RoutesKindMap] => {
+		if ('label' in data) return 'boards';
+		if ('category' in data) return 'categories';
+		if ('value' in data) {
+			const kind = data.value as keyof RoutesKindMap;
+			return kind as RoutesKindMap[keyof RoutesKindMap]
+		}
+		return 'boards';
+	};
 	
 
 	const onCopy = (id: string) => {
