@@ -1,16 +1,15 @@
-import { SizeClient } from '@/components/size-client';
-import type { SizeColumn } from '@/components/table/size-columns';
+import { ColorClient } from '@/components/color-client';
+import { ColorColumn } from '@/components/table/color-columns';
 import prismadb from '@/lib/prismadb';
 
 const ColorsPage = async ({ params }: { params: { storeId: string } }) => {
 	const colors = await prismadb.color.findMany({
 		where: {
 			storeId: params.storeId,
-			
 		},
 		orderBy: { createdAt: 'desc' },
 	});
-	const formattedData: SizeColumn[] = colors.map(
+	const formattedData: ColorColumn[] = colors.map(
 		({ id, name, value, createdAt }) => ({
 			id,
 			name,
@@ -28,7 +27,7 @@ const ColorsPage = async ({ params }: { params: { storeId: string } }) => {
 	return (
 		<div className="flex-col">
 			<div className="flex-1 space-y-4 p-8 pt-6">
-				<SizeClient data={formattedData} />
+				<ColorClient data={formattedData} />
 			</div>
 		</div>
 	);
