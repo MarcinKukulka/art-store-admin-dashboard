@@ -18,21 +18,22 @@ import axios from 'axios';
 import { AlertModal } from '@/components/modals/alert-modal';
 import type { CategoryColumn } from '@/components/table/category-columns';
 import type { SizeColumn } from '@/components/table/size-columns';
+import type { ColorColumn } from '@/components/table/color-columns';
 
 type CellActionProps = {
-	data: BoardColumn | CategoryColumn | SizeColumn;
+	data: BoardColumn | CategoryColumn | SizeColumn | ColorColumn;
 };
 
 type ToastKindMap = {
-    label: 'Board';
-    category: 'Category';
-    value: 'Size' | 'Color';
+	label: 'Board';
+	category: 'Category';
+	value: 'Size' | 'Color';
 };
 
 type RoutesKindMap = {
-    label: 'boards';
-    category: 'categories';
-    value: 'sizes' | 'colors';
+	label: 'boards';
+	category: 'categories';
+	value: 'sizes' | 'colors';
 };
 
 export const CellAction = ({ data }: CellActionProps) => {
@@ -57,7 +58,7 @@ export const CellAction = ({ data }: CellActionProps) => {
 	// 	const kind = keys.find(key => key in data) as keyof ToastKindMap;
 	// 	return kind ? kind : 'Unknown';
 	// };
-	
+
 	// const routesKind = (): RoutesKindMap[keyof RoutesKindMap] => {
 	// 	const keys = Object.keys(data) as (keyof typeof data)[];
 	// 	const kind = keys.find(key => key in data) as keyof RoutesKindMap;
@@ -72,17 +73,16 @@ export const CellAction = ({ data }: CellActionProps) => {
 		}
 		return 'Board';
 	};
-	
+
 	const routesKind = (): RoutesKindMap[keyof RoutesKindMap] => {
 		if ('label' in data) return 'boards';
 		if ('category' in data) return 'categories';
 		if ('value' in data) {
 			const kind = data.value as keyof RoutesKindMap;
-			return kind as RoutesKindMap[keyof RoutesKindMap]
+			return kind as RoutesKindMap[keyof RoutesKindMap];
 		}
 		return 'boards';
 	};
-	
 
 	const onCopy = (id: string) => {
 		navigator.clipboard.writeText(id);
