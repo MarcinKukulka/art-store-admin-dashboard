@@ -60,12 +60,7 @@ export const CellAction = ({ data }: CellActionProps) => {
 		if ('colorValue' in data) return 'Color';
 	};
 
-	const routesKind = () => {
-		if ('label' in data) return 'boards';
-		if ('category' in data) return 'categories';
-		if ('value' in data) return 'sizes';
-		if ('colorValue' in data) return 'colors';
-	};
+	
 
 	const onCopy = (id: string) => {
 		navigator.clipboard.writeText(id);

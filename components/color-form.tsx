@@ -40,7 +40,7 @@ type ColorFormValues = z.infer<typeof formSchema>;
 export const ColorForm = ({ initialData }: ColorFormProps) => {
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
-	
+
 	const params = useParams();
 	const { storeId, colorId } = params;
 
