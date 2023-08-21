@@ -40,21 +40,7 @@ type ColorFormValues = z.infer<typeof formSchema>;
 export const ColorForm = ({ initialData }: ColorFormProps) => {
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
-	// const [showHex, setShowHex] = useState('');
-	// const [clicked, setClicked] = useState(false);
-
-	// const handleFocus = () => {
-	// 	if (!clicked) {
-	// 		setShowHex('#');
-	// 		setClicked(true);
-	// 	}
-	// };
-	// const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	if (event.target) {
-	// 		setShowHex(event.target.value);
-	// 	}
-	// };
-
+	
 	const params = useParams();
 	const { storeId, colorId } = params;
 
