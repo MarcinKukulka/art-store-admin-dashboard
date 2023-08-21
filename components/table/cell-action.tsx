@@ -24,17 +24,6 @@ type CellActionProps = {
 	data: BoardColumn | CategoryColumn | SizeColumn | ColorColumn;
 };
 
-type ToastKindMap = {
-	label: 'Board';
-	category: 'Category';
-	value: 'Size' | 'Color';
-};
-
-type RoutesKindMap = {
-	label: 'boards';
-	category: 'categories';
-	value: 'sizes' | 'colors';
-};
 
 export const CellAction = ({ data }: CellActionProps) => {
 	const router = useRouter();
@@ -64,25 +53,14 @@ export const CellAction = ({ data }: CellActionProps) => {
 	// 	const kind = keys.find(key => key in data) as keyof RoutesKindMap;
 	// 	return kind ? kind : 'unknown';
 	// };
-	const toastKind = (): ToastKindMap[keyof ToastKindMap] => {
+	const toastKind = () => {
 		if ('label' in data) return 'Board';
 		if ('category' in data) return 'Category';
-		if ('value' in data) {
-			const kind = data.value as keyof ToastKindMap;
-			return kind as ToastKindMap[keyof ToastKindMap];
-		}
-		return 'Board';
+		if ('value' in data) return 'Size';
+		if ('colorValue' in data) return 'Color';
 	};
 
-	const routesKind = (): RoutesKindMap[keyof RoutesKindMap] => {
-		if ('label' in data) return 'boards';
-		if ('category' in data) return 'categories';
-		if ('value' in data) {
-			const kind = data.value as keyof RoutesKindMap;
-			return kind as RoutesKindMap[keyof RoutesKindMap];
-		}
-		return 'boards';
-	};
+	
 
 	const onCopy = (id: string) => {
 		navigator.clipboard.writeText(id);

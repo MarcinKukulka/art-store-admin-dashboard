@@ -6,7 +6,7 @@ import { CellAction } from '@/components/table/cell-action';
 export type ColorColumn = {
 	id: string;
 	name: string;
-	value: string;
+	colorValue: string;
 	createdAt: string;
 };
 
@@ -16,14 +16,14 @@ export const ColorColumns: ColumnDef<ColorColumn>[] = [
 		header: 'Name',
 	},
 	{
-		accessorKey: 'value',
+		accessorKey: 'colorValue',
 		header: 'Value',
 		cell: ({ row }) => (
 			<div className="flex items-center gap-x-2">
-				{row.original.value}
+				{row.original.colorValue}
 				<div
 					className="h-6 w-6 rounded-full border"
-					style={{ backgroundColor: row.original.value }}
+					style={{ backgroundColor: row.original.colorValue }}
 				/>
 			</div>
 		),
