@@ -24,7 +24,6 @@ type CellActionProps = {
 	data: BoardColumn | CategoryColumn | SizeColumn | ColorColumn;
 };
 
-
 export const CellAction = ({ data }: CellActionProps) => {
 	const router = useRouter();
 	const params = useParams();
@@ -32,37 +31,18 @@ export const CellAction = ({ data }: CellActionProps) => {
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 
-	// const toastKind = () => {
-	// 	if('label' in data) return 'Board';
-	// 	if('category' in data) return 'Category';
-	// 	if('value' in data) return 'Size';
-	// }
-	// const routesKind = () => {
-	// 	if('label' in data) return 'boards';
-	// 	if('category' in data) return 'categories';
-	// 	if('value' in data) return 'sizes';
-	// }
-	// const toastKind = (): ToastKindMap[keyof ToastKindMap] => {
-	// 	const keys = Object.keys(data) as (keyof typeof data)[];
-	// 	const kind = keys.find(key => key in data) as keyof ToastKindMap;
-	// 	return kind ? kind : 'Unknown';
-	// };
-
-	// const routesKind = (): RoutesKindMap[keyof RoutesKindMap] => {
-	// 	const keys = Object.keys(data) as (keyof typeof data)[];
-	// 	const kind = keys.find(key => key in data) as keyof RoutesKindMap;
-	// 	return kind ? kind : 'unknown';
-	// };
+	
 	const toastKind = () => {
 		if ('label' in data) return 'Board';
-		if ('category' in data) return 'Category';
+		if ('boardLabel' in data) return 'Category';
 		if ('value' in data) return 'Size';
 		if ('colorValue' in data) return 'Color';
 	};
 
 	const routesKind = () => {
+		console.log(data);
 		if ('label' in data) return 'boards';
-		if ('category' in data) return 'categories';
+		if ('boardLabel' in data) return 'categories';
 		if ('value' in data) return 'sizes';
 		if ('colorValue' in data) return 'colors';
 	};
@@ -84,6 +64,8 @@ export const CellAction = ({ data }: CellActionProps) => {
 			setOpen(false);
 		}
 	};
+
+
 	return (
 		<>
 			<AlertModal

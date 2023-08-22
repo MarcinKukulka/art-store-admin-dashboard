@@ -10,10 +10,10 @@ const ColorsPage = async ({ params }: { params: { storeId: string } }) => {
 		orderBy: { createdAt: 'desc' },
 	});
 	const formattedData: ColorColumn[] = colors.map(
-		({ id, name, value, createdAt }) => ({
+		({ id, name, colorValue, createdAt }) => ({
 			id,
 			name,
-			value,
+			colorValue,
 			createdAt: Intl.DateTimeFormat('pl-PL', {
 				year: 'numeric',
 				month: 'numeric',

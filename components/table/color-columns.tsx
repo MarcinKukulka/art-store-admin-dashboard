@@ -16,7 +16,7 @@ export const ColorColumns: ColumnDef<ColorColumn>[] = [
 		header: 'Name',
 	},
 	{
-		accessorKey: 'colorValue',
+		accessorKey: 'value',
 		header: 'Value',
 		cell: ({ row }) => (
 			<div className="flex items-center gap-x-2">
