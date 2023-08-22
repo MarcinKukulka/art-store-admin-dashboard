@@ -33,17 +33,17 @@ export async function PATCH(
 		const { userId } = auth();
 		const body = await req.json();
 
-		const { name, value } = body;
+		const { name, colorValue } = body;
 		const { colorId, storeId } = params;
 
 		if (!userId) return new NextResponse('Unauthenticated', { status: 401 });
 
 		if (!name) return new NextResponse('Name is required', { status: 400 });
-		if (!value)
+		if (!colorValue)
 			return new NextResponse('Value is required', { status: 400 });
 
 		if (!colorId)
-			return new NextResponse('Size id is required', { status: 400 });
+			return new NextResponse('Color id is required', { status: 400 });
 
 		const storeByUserId = await prismadb.store.findFirst({
 			where: { id: storeId, userId },
@@ -56,7 +56,7 @@ export async function PATCH(
 			where: {
 				id: colorId,
 			},
-			data: { name, value },
+			data: { name, colorValue },
 		});
 
 		return NextResponse.json(color);
