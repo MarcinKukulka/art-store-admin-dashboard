@@ -72,7 +72,7 @@ model Color {
   store         Store @relation("StoreToColor", fields: [storeId], references: [id])
   products      Product[]
   name          String
-  value         String
+  colorValue    String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

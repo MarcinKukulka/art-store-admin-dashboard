@@ -29,7 +29,7 @@ type ColorFormProps = {
 
 const formSchema = z.object({
 	name: z.string().min(1),
-	value: z
+	colorValue: z
 		.string()
 		.min(4)
 		.regex(/^#/, { message: 'Color must start with # (valid hex code)' }),
@@ -40,7 +40,7 @@ type ColorFormValues = z.infer<typeof formSchema>;
 export const ColorForm = ({ initialData }: ColorFormProps) => {
 	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
-
+	
 	const params = useParams();
 	const { storeId, colorId } = params;
 
@@ -53,7 +53,7 @@ export const ColorForm = ({ initialData }: ColorFormProps) => {
 
 	const form = useForm<ColorFormValues>({
 		resolver: zodResolver(formSchema),
-		defaultValues: initialData || { name: '', value: '' },
+		defaultValues: initialData || { name: '', colorValue: '' },
 	});
 
 	const onSubmit = async (data: ColorFormValues) => {
@@ -138,7 +138,7 @@ export const ColorForm = ({ initialData }: ColorFormProps) => {
 						/>
 						<FormField
 							control={form.control}
-							name="value"
+							name="colorValue"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Value</FormLabel>
