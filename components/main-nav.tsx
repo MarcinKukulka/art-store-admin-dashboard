@@ -10,36 +10,42 @@ export const MainNav = ({
 }: React.HTMLAttributes<HTMLElement>) => {
 	const pathname = usePathname();
 	const params = useParams();
+	const { storeId } = params;
 	const routes = [
 		{
-			href: `/${params.storeId}`,
+			href: `/${storeId}`,
 			label: 'Overview',
-			active: pathname === `/${params.storeId}`,
+			active: pathname === `/${storeId}`,
 		},
 		{
-			href: `/${params.storeId}/boards`,
+			href: `/${storeId}/boards`,
 			label: 'Boards',
-			active: pathname === `/${params.storeId}/boards`,
+			active: pathname === `/${storeId}/boards`,
 		},
 		{
-			href: `/${params.storeId}/categories`,
+			href: `/${storeId}/categories`,
 			label: 'Categories',
-			active: pathname === `/${params.storeId}/categories`,
+			active: pathname === `/${storeId}/categories`,
 		},
 		{
-			href: `/${params.storeId}/sizes`,
+			href: `/${storeId}/sizes`,
 			label: 'Sizes',
-			active: pathname === `/${params.storeId}/sizes`,
+			active: pathname === `/${storeId}/sizes`,
 		},
 		{
-			href: `/${params.storeId}/colors`,
+			href: `/${storeId}/colors`,
 			label: 'Colors',
-			active: pathname === `/${params.storeId}/colors`,
+			active: pathname === `/${storeId}/colors`,
 		},
 		{
-			href: `/${params.storeId}/settings`,
+			href: `/${storeId}/products`,
+			label: 'Products',
+			active: pathname === `/${storeId}/products`,
+},
+		{
+			href: `/${storeId}/settings`,
 			label: 'Settings',
-			active: pathname === `/${params.storeId}/settings`,
+			active: pathname === `/${storeId}/settings`,
 		},
 	];
 	return (
