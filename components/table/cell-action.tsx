@@ -19,9 +19,10 @@ import { AlertModal } from '@/components/modals/alert-modal';
 import type { CategoryColumn } from '@/components/table/category-columns';
 import type { SizeColumn } from '@/components/table/size-columns';
 import type { ColorColumn } from '@/components/table/color-columns';
+import type { ProductColumn } from '@/components/table/products-columns';
 
 type CellActionProps = {
-	data: BoardColumn | CategoryColumn | SizeColumn | ColorColumn;
+	data: BoardColumn | CategoryColumn | SizeColumn | ColorColumn | ProductColumn;
 };
 
 export const CellAction = ({ data }: CellActionProps) => {
@@ -37,6 +38,7 @@ export const CellAction = ({ data }: CellActionProps) => {
 		if ('boardLabel' in data) return 'Category';
 		if ('value' in data) return 'Size';
 		if ('colorValue' in data) return 'Color';
+		if ('isFeatured' in data) return 'Product';
 	};
 
 	const routesKind = () => {
@@ -45,6 +47,7 @@ export const CellAction = ({ data }: CellActionProps) => {
 		if ('boardLabel' in data) return 'categories';
 		if ('value' in data) return 'sizes';
 		if ('colorValue' in data) return 'colors';
+		if ('isFeatured' in data) return 'products';
 	};
 
 	const onCopy = (id: string) => {
