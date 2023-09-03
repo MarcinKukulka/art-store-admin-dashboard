@@ -1,4 +1,4 @@
-import { SizeClient } from '@/components/size-client';
+import { SizeClient } from '@/components/size/size-client';
 import type { SizeColumn } from '@/components/table/size-columns';
 import prismadb from '@/lib/prismadb';
 

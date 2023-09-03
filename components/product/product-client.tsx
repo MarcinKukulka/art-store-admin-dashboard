@@ -7,13 +7,13 @@ import { Separator } from '@/components/ui/separator';
 import { useParams, useRouter } from 'next/navigation';
 import { DataTable } from '@/components/table/data-tabel';
 import { ApiList } from '@/components/ui/api-list';
-import { CategoryColumn, CategoryColumns } from './table/category-columns';
+import { ProductColumn, ProductColumns } from '@/components/table/products-columns';
 
-type CategoriesClientProps = {
-	data: CategoryColumn[];
+type ProductClientProps = {
+	data: ProductColumn[]
 };
 
-export const CategoriesClient = ({ data }: CategoriesClientProps) => {
+export const ProductClient = ({ data }: ProductClientProps) => {
 	const router = useRouter();
 	const params = useParams();
 
@@ -21,21 +21,19 @@ export const CategoriesClient = ({ data }: CategoriesClientProps) => {
 		<>
 			<div className="flex items-center justify-between">
 				<Heading
-					title={`Categories (${data.length})`}
-					description="Manage categories of your store"
+					title={`Products (${data.length})`}
+					description="Manage boards of your store"
 				/>
-				<Button
-					onClick={() => router.push(`/${params.storeId}/categories/add`)}
-				>
+				<Button onClick={() => router.push(`/${params.storeId}/products/add`)}>
 					<Plus className="mr-2 h-4 w-4" />
 					Add new
 				</Button>
 			</div>
 			<Separator />
-			<DataTable columns={CategoryColumns} data={data} filter="name" />
-			<Heading title="API" description="Calls for categories" />
+			<DataTable columns={ProductColumns} data={data} filter="name" />
+			<Heading title="API" description="Calls for products" />
 			<Separator />
-			<ApiList subjectName="categories" subjectId="categoryId" />
+			<ApiList subjectName="products" subjectId="productId" />
 		</>
 	);
 };

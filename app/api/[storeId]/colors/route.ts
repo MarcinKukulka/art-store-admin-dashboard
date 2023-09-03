@@ -17,7 +17,7 @@ export async function POST(
 		if (!userId) return new NextResponse('Unauthenticated', { status: 401 });
 
 		if (!name) return new NextResponse('Name is required', { status: 400 });
-		if (!colorValue) return new NextResponse('Colo value is required', { status: 400 });
+		if (!colorValue) return new NextResponse('Color value is required', { status: 400 });
 
 		if (!storeId)
 			return new NextResponse('Color id is required', { status: 400 });

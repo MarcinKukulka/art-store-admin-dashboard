@@ -1,4 +1,4 @@
-import { ColorForm } from '@/components/color-form';
+import { ColorForm } from '@/components/color/color-form';
 import prismadb from '@/lib/prismadb';
 
 const ColorPage = async ({ params }: { params: { colorId: string } }) => {
