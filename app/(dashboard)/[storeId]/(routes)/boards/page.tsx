@@ -1,4 +1,4 @@
-import { StoreBoardClient } from '@/components/board-client';
+import { StoreBoardClient } from '@/components/board/board-client';
 import type { BoardColumn } from '@/components/table/board-columns';
 import prismadb from '@/lib/prismadb';
 

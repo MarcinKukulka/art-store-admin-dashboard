@@ -1,4 +1,4 @@
-import { ProductClient } from '@/components/product-client';
+import { ProductClient } from '@/components/product/product-client';
 import type { ProductColumn } from '@/components/table/products-columns';
 import prismadb from '@/lib/prismadb';
 import { formatter } from '@/lib/utils';
@@ -36,7 +36,7 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
 				minute: 'numeric',
 			}).format(createdAt),
 			name,
-			color: color.value,
+			color: color.colorValue,
 			category: category.name,
 			isArchived,
 			size: size.name,

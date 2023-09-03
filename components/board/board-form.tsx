@@ -36,8 +36,6 @@ const formSchema = z.object({
 
 type BoardFormValues = z.infer<typeof formSchema>;
 
-type color = 'blue'
-var color = 'blue'
 
 export const BoardForm = ({ initialData }: BoardFormProps) => {
 	const [open, setOpen] = useState(false);
@@ -48,7 +46,7 @@ export const BoardForm = ({ initialData }: BoardFormProps) => {
 	const {storeId, boardId} = params;
 	const router = useRouter();
 
-	const title = initialData ? `Edit ${color}` : 'Create board';
+	const title = initialData ? `Edit board` : 'Create board';
 	const description = initialData ? 'Edit board' : 'Add a new board';
 	const toastMessage = initialData ? 'Board updated' : 'Board created';
 	const action = initialData ? 'Save changes' : 'Create';

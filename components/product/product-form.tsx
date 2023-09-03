@@ -30,8 +30,8 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from './ui/select';
-import { Checkbox } from './ui/checkbox';
+} from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 
 type ProductFormProps = {
 	initialData:

@@ -1,4 +1,4 @@
-import { CategoriesClient } from '@/components/categories-client';
+import { CategoriesClient } from '@/components/category/categories-client';
 import type { CategoryColumn } from '@/components/table/category-columns';
 import prismadb from '@/lib/prismadb';
 

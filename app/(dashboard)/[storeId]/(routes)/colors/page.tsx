@@ -1,4 +1,4 @@
-import { ColorClient } from '@/components/color-client';
+import { ColorClient } from '@/components/color/color-client';
 import { ColorColumn } from '@/components/table/color-columns';
 import prismadb from '@/lib/prismadb';
 

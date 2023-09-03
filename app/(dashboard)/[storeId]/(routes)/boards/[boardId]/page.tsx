@@ -1,4 +1,4 @@
-import { BoardForm } from '@/components/board-form';
+import { BoardForm } from '@/components/board/board-form';
 import prismadb from '@/lib/prismadb';
 
 const BoardPage = async ({ params }: { params: { boardId: string } }) => {
