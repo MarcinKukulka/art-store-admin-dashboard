@@ -41,7 +41,12 @@ export const MainNav = ({
 			href: `/${storeId}/products`,
 			label: 'Products',
 			active: pathname === `/${storeId}/products`,
-},
+		},
+		{
+			href: `/${storeId}/orders`,
+			label: 'Orders',
+			active: pathname === `/${storeId}/orders`,
+		},
 		{
 			href: `/${storeId}/settings`,
 			label: 'Settings',
@@ -49,7 +54,9 @@ export const MainNav = ({
 		},
 	];
 	return (
-		<nav className={cn('flex items-center pl-4 space-x-4 lg:space-x-6', className)}>
+		<nav
+			className={cn('flex items-center pl-4 space-x-4 lg:space-x-6', className)}
+		>
 			{routes.map(({ href, label, active }) => (
 				<Link
 					key={href}

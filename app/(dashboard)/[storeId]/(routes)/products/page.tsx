@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { ProductClient } from '@/components/product/product-client';
-=======
-import { ProductClient } from '@/components/product-client';
->>>>>>> main
 import type { ProductColumn } from '@/components/table/products-columns';
 import prismadb from '@/lib/prismadb';
 import { formatter } from '@/lib/utils';
@@ -40,11 +36,7 @@ const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
 				minute: 'numeric',
 			}).format(createdAt),
 			name,
-<<<<<<< HEAD
 			color: color.colorValue,
-=======
-			color: color.value,
->>>>>>> main
 			category: category.name,
 			isArchived,
 			size: size.name,
