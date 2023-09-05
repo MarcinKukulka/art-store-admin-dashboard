@@ -14,7 +14,7 @@ export const OrderClient = ({ data }: OrderClientProps) => {
 		<>
 			<Heading
 				title={`Orders (${data.length})`}
-				description="Manage your orders"
+				description="Manage your orders here."
 			/>
 
 			<Separator />
